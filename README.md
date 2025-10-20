@@ -17,6 +17,7 @@ Aggregate key business metrics in Gold (total sales, quantity, unique customers,
 
 Visualize KPIs in Databricks for each country
 
+Data Source: UCI Online Retail Dataset (https://archive.ics.uci.edu/ml/datasets/Online+Retail)
 
 ⚙️**How to Run**
 
