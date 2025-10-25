@@ -9,7 +9,7 @@ A real-time retail data pipeline demonstrating Bronze → Silver → Gold archit
 💡 **Key features:**
 
 
-Stream CSV data uploaded to DBFS input folder into Delta Bronze tables
+Stream retail transactions in **real time** from **Azure Event Hub** into **Delta Bronze tables**  
 
 Clean & deduplicate in Silver
 
@@ -19,12 +19,27 @@ Visualize KPIs in Databricks for each country
 
 Data Source: UCI Online Retail Dataset (https://archive.ics.uci.edu/ml/datasets/Online+Retail)
 
+**Configuration**
+
+The pipeline uses a single configuration file to manage environment-specific settings:
+
+1.Event Hub credentials (connection string, consumer group)
+
+2.Delta table paths for Bronze, Silver, and Gold
+
+  File location: configs/config.json
+
+Usage: All notebooks read this file at runtime to connect to Event Hub and determine Delta storage locations.
+
+For local testing or demo purposes, you can upload the file to Databricks DBFS (/FileStore/configs/config.json).
+In production, you may use Databricks Secrets or another secure credential store instead.
+
 ⚙️**How to Run**
 
 
-1️⃣ Upload CSVs to the DBFS input folder (/FileStore/tables).
+1️⃣ Ensure **Event Hub** is running and contains retail transaction messages.
 
-2️⃣ Run Bronze Notebook → raw ingestion to Delta Bronze.
+2️⃣ Run Bronze Notebook → raw ingestion to Delta Bronze.[after uploading configs.json in dbfs]
 
 3️⃣ Run Silver Notebook → clean & deduplicate data → Delta Silver.
 
@@ -70,7 +85,7 @@ Avg Order Value --> Total Sales ÷ Total Quantity per country
 
 5.Databricks Visualizations – Charts & graphs
 
-6.DBFS Storage / CSV Input – Source data
+6.Azure Event Hub – Real-time streaming source
 
 
 🔍**Monitoring & Debugging**
@@ -103,7 +118,7 @@ c)Deduplication, type casting, and approximate distinct counts handled in Silver
 
 a)Structured streaming with PySpark
 
-b)Bronze–Silver–Gold Delta Lake architecture
+b)Event Hub → Delta Bronze → Silver → Gold pipeline
 
 c)Deduplication & data cleaning
 
