@@ -1,0 +1,12 @@
+{
+  "eventhub": {
+    "connection_string": "<add yours here>",
+    "consumer_group": "$Default"
+  },
+
+  "delta_tables": {
+    "bronze_path": "dbfs:/mnt/bronze/events",
+    "silver_path": "dbfs:/mnt/silver/events",
+    "gold_path": "dbfs:/mnt/gold/events"
+  }
+}
